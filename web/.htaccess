@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+Options -Indexes
+RewriteEngine on
+RewriteRule ^.well-known/carddav /addressbookserver/ [R=302,L]
+RewriteRule ^.well-known/caldav /calendarserver/ [R=302,L]
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_URI} !(/$|\.)
+RewriteRule (.*) %{REQUEST_URI}/ [R=302,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# otherwise forward it to index.php
+RewriteRule . index.php

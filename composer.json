@@ -1,0 +1,20 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Src\\": "Src",
+      "Spec\\": "Spec"
+    }
+  },
+  "require": {
+    "sabre/dav": "~3.2.0",
+    "ext-pdo": "*",
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "kahlan/kahlan": "4.6.*"
+  },
+  "scripts": {
+    "test": "kahlan",
+    "testCoverage": "kahlan --coverage=4"
+  }
+}
