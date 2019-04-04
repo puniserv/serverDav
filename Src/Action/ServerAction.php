@@ -14,7 +14,7 @@ class ServerAction extends Action
 {
     private $locksFile;
 
-    public function __construct(Db $db, string $action, string $locksFile)
+    public function __construct(Db $db, string $action, string $locksFile, string $publicPath)
     {
         parent::__construct($db, $action);
         $this->locksFile = $locksFile;

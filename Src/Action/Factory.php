@@ -12,11 +12,14 @@ class Factory
     private $db;
     /** @var string */
     private $locksFile;
+    /** @var string */
+    private $publicPath;
 
-    public function __construct(Db $db, string $locksFile)
+    public function __construct(Db $db, string $locksFile, string $publicPath)
     {
         $this->db = $db;
         $this->locksFile = $locksFile;
+        $this->publicPath = $publicPath;
     }
 
     /**
@@ -32,7 +35,7 @@ class Factory
             case Actions::CONTACTS:
                 return new Contacts($this->db, $type);
             case Actions::SERVER:
-                return new ServerAction($this->db, $type, $this->locksFile);
+                return new ServerAction($this->db, $type, $this->locksFile, $this->publicPath);
         }
         throw new ServerException("Invalid action '$type'");
     }

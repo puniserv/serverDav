@@ -10,6 +10,7 @@ return [
         ],
         Container::ACTION_FACTORY => [
             'locksFile' => __DIR__ . '/../data/locks',
+            'publicPath' => __DIR__ . '/../web/public',
         ],
     ],
 ];

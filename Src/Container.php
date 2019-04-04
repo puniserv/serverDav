@@ -21,7 +21,11 @@ class Container
 
     public function getActionFactory(): Factory
     {
-        return $this->instances[self::ACTION_FACTORY] ?? $this->instances[self::ACTION_FACTORY] = new Factory($this->getDb(), $this->app->getFactoryConfig()['locksFile'] ?? '');
+        return $this->instances[self::ACTION_FACTORY] ?? $this->instances[self::ACTION_FACTORY] = new Factory(
+                $this->getDb(),
+                $this->app->getFactoryConfig()['locksFile'] ?? '',
+                $this->app->getFactoryConfig()['publicPath'] ?? ''
+            );
     }
 
     public function getDb(): Db
