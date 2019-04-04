@@ -85,7 +85,7 @@ class App
         $this->registerErrorHandler();
         $this->validateConfig();
         $this->setTimezone();
-        $this->container = new Container($this);
+        $this->container = new Container($this->config['services'] ?? []);
         $this->container->getDb()->connect();
     }
 

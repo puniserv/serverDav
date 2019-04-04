@@ -10,27 +10,26 @@ class Container
     public const ACTION_FACTORY = 'actionFactory';
     public const DB = 'db';
     public const REQUEST = 'request';
-    /** @var App */
-    private $app;
+    private $config;
     private $instances = [];
 
-    public function __construct(App $app)
+    public function __construct(array $config)
     {
-        $this->app = $app;
+        $this->config = $config;
     }
 
     public function getActionFactory(): Factory
     {
         return $this->instances[self::ACTION_FACTORY] ?? $this->instances[self::ACTION_FACTORY] = new Factory(
                 $this->getDb(),
-                $this->app->getFactoryConfig()['locksFile'] ?? '',
-                $this->app->getFactoryConfig()['publicPath'] ?? ''
+                $this->config[self::ACTION_FACTORY]['locksFile'] ?? '',
+                $this->config[self::ACTION_FACTORY]['publicPath'] ?? ''
             );
     }
 
     public function getDb(): Db
     {
-        return $this->instances[self::DB] ?? $this->instances[self::DB] = new Db($this->app->getDbConfig());
+        return $this->instances[self::DB] ?? $this->instances[self::DB] = new Db($this->config[self::DB] ?? []);
     }
 
     public function getRequest(): Request

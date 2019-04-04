@@ -4,9 +4,10 @@ use Src\Container;
 
 return [
     'timezone' => getenv('DAV_TIMEZONE') ?: 'Canada/Eastern',
+    'sqlLiteFilePath' => $sqliteFilePath = __DIR__ . '/../data/db.sqlite',
     'services' => [
         Container::DB => [
-            'dsn' => 'sqlite:' . __DIR__ . '/../data/db.sqlite',
+            'dsn' => 'sqlite:' . $sqliteFilePath,
         ],
         Container::ACTION_FACTORY => [
             'locksFile' => __DIR__ . '/../data/locks',
