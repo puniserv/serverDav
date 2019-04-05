@@ -45,7 +45,7 @@ class App
                 throw $this->missingConfigAttributeException([$configAttribute]);
             }
         }
-        if (!isset($this->getDbConfig()['dsn'])) {
+        if (!isset($this->getServicesConfig()[Container::DB]['dsn'])) {
             throw $this->missingConfigAttributeException([
                 'services',
                 Container::DB,
@@ -85,18 +85,8 @@ class App
         $this->registerErrorHandler();
         $this->validateConfig();
         $this->setTimezone();
-        $this->container = new Container($this->config['services'] ?? []);
+        $this->container = new Container($this->getServicesConfig() ?? []);
         $this->container->getDb()->connect();
-    }
-
-    public function getDbConfig(): array
-    {
-        return $this->config['services'][Container::DB] ?? [];
-    }
-
-    public function getFactoryConfig(): array
-    {
-        return $this->config['services'][Container::ACTION_FACTORY] ?? [];
     }
 
     private function missingConfigAttributeException(array $keys): ServerException
@@ -110,5 +100,10 @@ class App
     private function redirect(string $path): void
     {
         header("Location: /$path");
+    }
+
+    private function getServicesConfig(): array
+    {
+        return $this->config['services'] ?? [];
     }
 }
